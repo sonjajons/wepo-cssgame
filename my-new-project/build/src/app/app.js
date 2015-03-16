@@ -3,7 +3,7 @@
 
 
     angular.module('evalApp', ['ngRoute', 'templates-app', 'templates-common'])
-        .config(function ($routeProvider) {
+        .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
           .when('/', {
             templateUrl: 'login.html',
@@ -18,9 +18,9 @@
             controller: 'StudentController'
           })
           .otherwise({
-            redirectTo: '/src/views/login.html'
+            redirectTo: '/'
           });
-    });
+    }]);
 
 
 }());

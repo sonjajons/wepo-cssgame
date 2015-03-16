@@ -346,7 +346,7 @@ module.exports = function(grunt) {
             // These are the templates from 'src/app'.
             app: {
                 options: {
-                    base: 'views'
+                    base: 'src/views'
                 },
                 src: [ '<%= app_files.appTemplates %>' ],
                 dest: '<%= build_dir %>/templates-app.js'

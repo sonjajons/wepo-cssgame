@@ -18,7 +18,7 @@
             controller: 'StudentController'
           })
           .otherwise({
-            redirectTo: '/src/views/login.html'
+            redirectTo: '/'
           });
     });
 

@@ -12,7 +12,7 @@ module.exports = function ( karma ) {
             'vendor/angular/angular.js',
                 'vendor/angular-resource/angular-resource.js',
                 'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                'vendor/angular-route/angular-route.min.js',
+                'vendor/angular-route/angular-route.js',
                 'build/templates-app.js',
                 'build/templates-common.js',
                 'vendor/angular-mocks/angular-mocks.js',

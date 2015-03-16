@@ -4,7 +4,6 @@
 
    angular.module('evalApp')
   .controller('LoginController', function ($scope, LoginResources, $location) {
-	
 
 	$scope.login = function () {
 		if($scope.user === "" || $scope.pass === ""){

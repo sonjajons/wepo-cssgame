@@ -3,8 +3,9 @@
    // this function is strict...
 
    angular.module('evalApp')
-  .controller('LoginController', function ($scope, LoginResources, $location) {
+  .controller('LoginController', ['$scope', 'LoginResources', '$location', function ($scope, LoginResources, $location) {
 	
+	console.log('helli ');
 
 	$scope.login = function () {
 		if($scope.user === "" || $scope.pass === ""){
@@ -30,17 +31,17 @@
 		}  
 	};
 
-  });
+  }]);
 
 
 angular.module('evalApp').factory('LoginResources',
-	function($http) {
+	['$http', function($http) {
 		return {
 			login: function(user, pass){
 				return $http.post("http://dispatch.ru.is/h26/api/v1/login", {user: user, pass: pass});
 			}
 		};
-	});
+	}]);
 
 
 }());
