@@ -3,9 +3,12 @@
   <p class="lead">
     Please log in with RU credentials
   </p>
+  <div class="alert alert-danger" ng-cloak ng-show="errorMessage != ''">
+    {{errorMessage}}
+  </div>
   <div class="form-group">
           <span><label for="user" class="control-label">Username:</label></span>
-          <input type="text" class="form-control" id="user" name="user" ng-model="user" />
+          <input type="text" class="form-control" id="user" name="user" ng-model="user" required="required"/>
   </div>
   <div class="form-group">
           <span><label for="pass" class="control-label">Password:</label></span>

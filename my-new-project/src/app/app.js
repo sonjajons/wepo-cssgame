@@ -13,6 +13,10 @@
             templateUrl: 'teacherhome.html',
             controller: 'TeacherController'
           })
+          .when('/createEval', {
+            templateUrl: 'teachercreate.html',
+            controller: 'TeacherCreateEval'
+          })
           .when('/student', {
             templateUrl: 'studenthome.html',
             controller: 'StudentController'

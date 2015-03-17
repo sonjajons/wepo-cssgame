@@ -1,45 +1,62 @@
 (function () {
    "use strict";
-   // this function is strict...
 
-   angular.module('evalApp')
-  .controller('LoginController', ['$scope', 'LoginResources', '$location', function ($scope, LoginResources, $location) {
+	angular.module('evalApp')
+	.controller('LoginController', function ($scope, LoginResources, $location) {
+	
+		$scope.errorMessage = "";
 
-	$scope.login = function () {
-		if($scope.user === "" || $scope.pass === ""){
-		//TODO villuskilaboð - má ekki vera tómt
-		}
-		else {
+		$scope.login = function () {
 			LoginResources.login($scope.user, $scope.pass)
 			.success(function (data) {
+				
+				// Saving token
+				LoginResources.setToken(data.Token);
+				// Saving user
+				LoginResources.setUser(data.User);
+
 				if(data.User.Role === "admin") {
 					//Redirect to evaluation create template
-					// $location.path(/../);
 					$location.path('/teacher');
 				}
 				else {
 					// Redirect to evaluation
 					$location.path('/student');
 				}
-				//TODO fara í kennslumatið sjálft
 			})
 			.error(function () {
-				//TODO villuskilaboð og reyna aftur !
+				// Login failed ==> error msg 
+				$scope.errorMessage = 'Username and/or password invalid. Please try again.';
 			});
-		}  
-	};
-
-  }]);
-
-
-angular.module('evalApp').factory('LoginResources',
-	['$http', function($http) {
-		return {
-			login: function(user, pass){
-				return $http.post("http://dispatch.ru.is/h26/api/v1/login", {user: user, pass: pass});
-			}
 		};
-	}]);
+	});
+
+
+	angular.module('evalApp').factory('LoginResources',
+		function($http) {
+			var token = "";
+			var user = {};
+
+			return {
+				login: function(user, pass){
+					return $http.post("http://dispatch.ru.is/h26/api/v1/login", {user: user, pass: pass});
+				},
+				setToken: function(_token) {
+					token = _token;
+					$http.defaults.headers.common.Authorization = 'Basic ' + token;
+				},
+				retToken: function () {
+					return token;
+				},
+				setUser: function(_user) {
+					user = _user;
+				},
+				retUser: function() {
+					return user;
+				}
+			};
+		}
+	);
 
 
 }());

@@ -5,10 +5,6 @@ describe('LoginResources', function () {
 
 	var LoginResources;
 
-	it('true should be true', function() {
-		expect(true).toBe(true);
-	});
-
 	beforeEach(inject(function (_LoginResources_) {
 		LoginResources = _LoginResources_;
 	}));
@@ -18,6 +14,17 @@ describe('LoginResources', function () {
 		.respond(200, 'true');
 
 		LoginResources.login('sonja13', '12345').then(function(data){
+		expect(data).toBeTruthy();
+		
+		});
+		//$httpBackend.flush();
+	}));
+
+	it('should login teacher successfully', inject(function(LoginResources, $httpBackend) {
+		$httpBackend.expect('POST', 'http://dispatch.ru.is/h26/api/v1/login')
+		.respond(200, 'true');
+
+		LoginResources.login('dabs', '12345').then(function(data){
 		expect(data).toBeTruthy();
 		
 		});
@@ -44,4 +51,18 @@ describe('LoginResources', function () {
 		});
 		//$httpBackend.flush();
 	}));
+
+	it('should set token as loremipsum', inject(function(LoginResources) {
+		var token = "loremipsum";
+		var retToken = "";
+		
+		// Set token as loremipsum
+		LoginResources.setToken(token);
+		// Get the recently set token
+		retToken = LoginResources.retToken();
+
+		// Test if equal
+		expect(retToken).toBe(token);
+	}));
+
 });
