@@ -190,15 +190,16 @@ angular.module("teacherhome.html", []).run(["$templateCache", function($template
   $templateCache.put("teacherhome.html",
     "<div class=\"jumbotron\">\n" +
     "	<h2>Teacher's view</h2>\n" +
-    "  \n" +
+    "\n" +
+    "	<p><a class=\"btn btn-lg btn-info\" ng-click=\"create()\">Create evaluation</a></p>\n" +
+    "\n" +
+    "\n" +
     "	<p class=\"lead\">\n" +
     "		List of evaluations\n" +
     "	</p>\n" +
     "\n" +
-    "	<p><a class=\"btn btn-lg btn-info\" ng-click=\"create()\">Create evaluation</a></p>\n" +
-    "\n" +
     "	<ul>\n" +
-    "		<li> WebProgramming Evaluation [example] </li>\n" +
+    "		<li ng-repeat=\"e in evalYOLO\"> {{e.Title}} </li>\n" +
     "	</ul>\n" +
     "\n" +
     "</div>");
