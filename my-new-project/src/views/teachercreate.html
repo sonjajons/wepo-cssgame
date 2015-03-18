@@ -9,15 +9,15 @@
 
 	<div class="form-group">
         <span><label for="Title" class="control-label">Title:</label></span>
-        <input type="text" class="form-control" id="Title" name="Title" ng-model="evalForm.Title" required/>
+        <input type="text" class="form-control" id="Title" name="Title" ng-model="evalForm.Title"/>
     </div>
     <div class="form-group">
         <span><label for="TitleEN" class="control-label">English Title:</label></span>
-        <input type="text" class="form-control" id="TitleEN" name="TitleEN" ng-model="evalForm.TitleEN" required/>
+        <input type="text" class="form-control" id="TitleEN" name="TitleEN" ng-model="evalForm.TitleEN"/>
     </div>
     <div class="form-group">
         <span><label for="IntroText" class="control-label">Introduction:</label></span>
-        <input type="text" class="form-control" id="IntroText" name="IntroText" ng-model="evalForm.IntroText" required/>
+        <input type="text" class="form-control" id="IntroText" name="IntroText" ng-model="evalForm.IntroText"/>
     </div>
     <div class="form-group">
         <span><label for="IntroTextEN" class="control-label">English Introduction:</label></span>
@@ -35,6 +35,8 @@
 					<div ng-repeat="c in evalForm.CourseQuestions" ng-show="c.Type === 'text'">
 						<input type="text" id="CourseQtext" ng-model="c.Text" placeholder="Titill" required="required"/>
 						<input type="text" id="CourseQtextEN" ng-model="c.TextEN" placeholder="Title" required="required"/>
+						<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(c, 'c')">Delete</button>
+
 					</div>
 				</div>
 					
@@ -44,10 +46,14 @@
 						<div ng-show="c.Type === 'single'">
 							<input type="text" id="CourseQtext" ng-model="c.Text" placeholder="Titill"/>
 							<input type="text" id="CourseQtextEN" ng-model="c.TextEN" placeholder="Title"/>
+							<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(c, 'c')">Delete</button>
+
 							<button class="btn btn-info" ng-click="addTAnswer(c)"> Add answer </button>
 							<div ng-repeat="a in c.Answers">
 								<input type="text" id="CourseQtext" ng-model="a.Text" placeholder="Titill"/>
 								<input type="text" id="CourseQtextEN" ng-model="a.TextEN" placeholder="Title"/>
+								<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(c, a, 'c')">Delete</button>
+
 							</div>
 						</div>
 					</div>
@@ -59,10 +65,14 @@
 						<div ng-show="c.Type === 'multiple'">
 							<input type="text" id="CourseQtext" ng-model="c.Text" placeholder="Titill" />
 							<input type="text" id="CourseQtextEN" ng-model="c.TextEN" placeholder="Title"/>
+							<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(c, 'c')">Delete</button>
+
 							<button class="btn btn-info" ng-click="addTAnswer(c)"> Add answer </button>
 							<div ng-repeat="a in c.Answers">
 								<input type="text" id="CourseQtext" ng-model="a.Text" placeholder="Titill"/>
 								<input type="text" id="CourseQtextEN" ng-model="a.TextEN" placeholder="Title"/>
+								<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(c, a, 'c')">Delete</button>
+
 							</div>
 						</div>
 					</div>
@@ -82,6 +92,7 @@
 					<div ng-repeat="t in evalForm.TeacherQuestions" ng-show="t.Type === 'text'">
 						<input type="text" id="TeacherQtext" ng-model="t.Text" placeholder="Titill"/>
 						<input type="text" id="TeacherQtextEN" ng-model="t.TextEN" placeholder="Title"/>
+						<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(t, 't')">Delete</button>
 					</div>
 				</div>
 
@@ -89,12 +100,18 @@
 					<button class="btn btn-info" ng-click="addTQuestion('single')"> Single Choice </button>
 					<div ng-repeat="t in evalForm.TeacherQuestions">
 						<div ng-show="t.Type === 'single'">
+							Question
 							<input type="text" id="TeacherQtext" ng-model="t.Text" placeholder="Titill"/>
 							<input type="text" id="TeacherQtextEN" ng-model="t.TextEN" placeholder="Title"/>
+							<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(t, 't')">Delete</button>
+
 							<button class="btn btn-info" ng-click="addTAnswer(t)"> Add answer </button>
 							<div ng-repeat="a in t.Answers">
+							Answers
 								<input type="text" id="TeacherQtext" ng-model="a.Text" placeholder="Titill"/>
 								<input type="text" id="TeacherQtextEN" ng-model="a.TextEN" placeholder="Title"/>
+								<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(t, a, 't')">Delete</button>
+
 							</div>
 						</div>
 					</div>
@@ -106,10 +123,14 @@
 						<div ng-show="t.Type === 'multiple'">
 							<input type="text" id="TeacherQtext" ng-model="t.Text" placeholder="Titill" />
 							<input type="text" id="TeacherQtextEN" ng-model="t.TextEN" placeholder="Title"/>
+							<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(t, 't')">Delete</button>
+
 							<button class="btn btn-info" ng-click="addTAnswer(t)"> Add answer </button>
 							<div ng-repeat="a in t.Answers">
 								<input type="text" id="TeacherQtext" ng-model="a.Text" placeholder="Titill"/>
 								<input type="text" id="TeacherQtextEN" ng-model="a.TextEN" placeholder="Title"/>
+								<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(t, a, 't')">Delete</button>
+
 							</div>
 						</div>
 					</div>

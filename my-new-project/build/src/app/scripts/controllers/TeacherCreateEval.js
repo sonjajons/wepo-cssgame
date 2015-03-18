@@ -6,7 +6,6 @@ angular.module('evalApp')
 
 	// Question ID
 	var Qnum = -1;
-	var Anum = -1;
 
 	$scope.evalForm = {
 		Title: '',
@@ -51,10 +50,6 @@ angular.module('evalApp')
 			ImageURL: '',
 			Weight: ''
 		};
-		/*console.dir(answer);
-		console.log("hvada spurning? " + quest);
-		console.dir(quest);*/
-		console.log("quest len: " + quest.Answers.length);
 		quest.Answers.push(answer);
 	};
 
@@ -62,6 +57,38 @@ angular.module('evalApp')
 		console.log("createEval");
 		console.dir($scope.evalForm);
 	};
+
+	$scope.RemoveQuestion = function(obj, tC) {
+		console.dir(obj);
+		console.log(tC);
+		
+		var ID = obj.ID;
+
+		if(tC === 't') {
+			$scope.evalForm.TeacherQuestions.splice(ID, 1);
+			Qnum--;
+		}
+		if(tC === 'c') {
+			$scope.evalForm.CourseQuestions.splice(ID, 1);
+			Qnum--;
+		}
+
+		console.dir($scope.evalForm.CourseQuestions);
+	};	
+
+	$scope.RemoveAnswer = function(quest, ans, tC) {
+		var IDq = quest.ID;
+		var IDa = ans.ID;
+
+		if(tC === 'c') {
+			$scope.evalForm.CourseQuestions[IDq].Answers.splice(IDa, 1);
+		}
+
+		if(tC === 't') {
+			$scope.evalForm.TeacherQuestions[IDq].Answers.splice(IDa, 1);
+		}
+	};	
+
 
 });
 }());
