@@ -2,44 +2,89 @@
    'use strict';
    // this function is strict...
 angular.module('evalApp')
-	.controller('TeacherCreateEval', function ($scope, TeacherResources, LoginResources, $location) {
+	.controller('TeacherCreateEval', function ($scope, TeacherResources, LoginResources, $routeParams, $location) {
 
 		// Question ID
-		var Qnum = -1;
+		$scope.Qnum = -1;
 
-		$scope.evalForm = {
-			Title: '',
-			TitleEN: '',
-			IntroText: '',
-			IntroTextEN: '',
-			CourseQuestions: [],
-			TeacherQuestions: []
+		var evalID = $routeParams.evalID;
+		console.log("evalid: " + evalID);
+
+		$scope.elliddi = evalID;
+
+		$scope.mja = true;
+
+		if(evalID !== undefined){
+			$scope.mja = false;
+			console.log("eval ekki undefined");
+			TeacherResources.getEvaluationID($scope.elliddi)
+			.success(function (data) {
+				console.log("eval ekki undefined og success");
+				$scope.evalForm = data;
+			})
+			.error(function() {
+				console.log("gekk ekki að sækja evaluation");
+			});
+
+		} else {
+			$scope.evalForm = {
+				Title: '',
+				TitleEN: '',
+				IntroText: '',
+				IntroTextEN: '',
+				CourseQuestions: [],
+				TeacherQuestions: []
+			};
+		}
+
+		$scope.publishTHIS = function (start, end) {
+
+			var evId = $scope.evalForm.ID;
+
+			var postME = {
+				TemplateID: evId,
+				StartDate: start,
+				EndDate: end
+			};
+
+			TeacherResources.publishEvaluation(postME)
+			.success(function(data) {
+				// Melding um ad allt hafi gengid
+				console.log("Published (Y)");
+				$scope.successMessage = "You're evaluation has been published!";
+				$location.path('/teacher');
+			})
+			.error(function(data) {
+				console.log("Error í teachercontroller publishEvaluation");
+			});
 		};
-
+		
 		$scope.addCQuestion = function (type) {
-			Qnum++;
+			$scope.Qnum++;
 			$scope.evalForm.CourseQuestions.push({
-				ID: Qnum,
+				ID: $scope.evalForm.CourseQuestions.length,
 				Text: '',
 				TextEN: '',
 				ImageURL: '',
 				Type: type,
 				Answers: []
 			});
-			console.log("Qnum st: " + Qnum);
+			console.log("CourseArr: ");
+			console.dir($scope.evalForm.CourseQuestions);
 		};
 
 		$scope.addTQuestion = function (type) {
-			Qnum++;
+			$scope.Qnum++;
 			$scope.evalForm.TeacherQuestions.push({
-				ID: Qnum,
+				ID: $scope.evalForm.TeacherQuestions.length,
 				Text: '',
 				TextEN: '',
 				ImageURL: '',
 				Type: type,
 				Answers: []
 			});
-			console.log("Qnum st: " + Qnum);
+			console.log("TeacherArr: ");
+			console.dir($scope.evalForm.TeacherQuestions);
 		};
 
 		$scope.addTAnswer = function (quest) {
@@ -61,14 +106,16 @@ angular.module('evalApp')
 
 			if(tC === 't') {
 				$scope.evalForm.TeacherQuestions.splice(ID, 1);
-				Qnum--;
+				console.log("Tlen: " + $scope.evalForm.TeacherQuestions.length);
+				console.log("TeacherArr after del: ");
+				console.dir($scope.evalForm.TeacherQuestions);
 			}
 			if(tC === 'c') {
 				$scope.evalForm.CourseQuestions.splice(ID, 1);
-				Qnum--;
+				console.log("Clen:" + $scope.evalForm.CourseQuestions.length);
+				console.log("CourseArr after del: ");
+				console.dir($scope.evalForm.CourseQuestions);
 			}
-
-			console.dir($scope.evalForm.CourseQuestions);
 		};	
 
 		$scope.RemoveAnswer = function(quest, ans, tC) {
@@ -89,6 +136,8 @@ angular.module('evalApp')
 			console.log("createEval");
 			console.dir($scope.evalForm);
 
+			TeacherResources.wholeEval($scope.evalForm);
+
 			TeacherResources.postEvaluation($scope.evalForm)
 			.success(function (data) {
 				console.log("kominn aftur" + data);
@@ -97,9 +146,7 @@ angular.module('evalApp')
 			.error(function () {
 				console.log("ERROR POSTING EVALUATION");
 			});
-			//post eacherFactory.postEvalTemplate($scope.evaluation);
 
-			//GO TO /teacher
 		};
 
 	});

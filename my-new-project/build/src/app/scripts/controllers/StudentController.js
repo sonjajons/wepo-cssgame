@@ -14,7 +14,10 @@ angular.module('evalApp')
 			$scope.course = data;
 		});
 
-		
+		StudentResources.getEvals()
+		.success(function (data){
+			$scope.evalYO = data;
+		});
 	}
 
 	});
@@ -25,6 +28,9 @@ angular.module('evalApp').factory('StudentResources',
 		return {
 			getCourses: function () {
 				return $http.get("http://dispatch.ru.is/h26/api/v1/my/courses");
+			},
+			getEvals: function () {
+				return $http.get("http://dispatch.ru.is/h26/api/v1/my/evaluations");
 			}
 		};
 	});

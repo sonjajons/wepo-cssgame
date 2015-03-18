@@ -1,144 +1,219 @@
 <div class="jumbotron">
-	<h2>Create Evaluation</h2>
-  
-	<p class="lead">
-		Please fill in form
-	</p>
+	
 
-	<!--<p><a class="btn btn-lg btn-info" ng-click="">Create evaluation</a></p> -->
+	<div ng-show="!mja">
+		<h2>Publish Evaluation</h2>
 
-	<div class="form-group">
-        <span><label for="Title" class="control-label">Title:</label></span>
-        <input type="text" class="form-control" id="Title" name="Title" ng-model="evalForm.Title"/>
-    </div>
-    <div class="form-group">
-        <span><label for="TitleEN" class="control-label">English Title:</label></span>
-        <input type="text" class="form-control" id="TitleEN" name="TitleEN" ng-model="evalForm.TitleEN"/>
-    </div>
-    <div class="form-group">
-        <span><label for="IntroText" class="control-label">Introduction:</label></span>
-        <input type="text" class="form-control" id="IntroText" name="IntroText" ng-model="evalForm.IntroText"/>
-    </div>
-    <div class="form-group">
-        <span><label for="IntroTextEN" class="control-label">English Introduction:</label></span>
-        <input type="text" class="form-control" id="IntroTextEN" name="IntroTextEN" ng-model="evalForm.IntroTextEN" required/>
-    </div>
-        </br>
-        <!-- CourseQuestions -->
-        <div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Course Questions</h3>
+		<p class="lead">
+			View evaluation before publishing
+		</p>
+		
+		<p>Title: {{evalForm.Title}}</p>
+		<p>English title: {{evalForm.TitleEN}}</p>
+		<p>Introduction: {{evalForm.IntroText}}</p>
+		<p>English Introduction: {{evalForm.IntroTextEN}}</p>
+		<p>Course Questions</p>
+		<div ng-repeat="c in evalForm.CourseQuestions" ng-show="c.Type === 'text'">
+			<p>Text question: {{c.Text}}</p>
+			<p>Text question: {{c.TextEN}}</p>
+		</div>
+		<div ng-repeat="c in evalForm.CourseQuestions" ng-show="c.Type === 'single'">
+			<p>Single choice question: {{c.Text}}</p>
+			<p>Single choice question: {{c.TextEN}} </p>
+			<div ng-repeat="a in c.Answers">
+				<p>Answer: {{a.Text}}</p>
+				<p>Answer: {{a.TextEN}}</p>
 			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<button class="btn btn-info" ng-click="addCQuestion('text')"> Text </button>
-					<div ng-repeat="c in evalForm.CourseQuestions" ng-show="c.Type === 'text'">
-						<input type="text" id="CourseQtext" ng-model="c.Text" placeholder="Titill" required="required"/>
-						<input type="text" id="CourseQtextEN" ng-model="c.TextEN" placeholder="Title" required="required"/>
-						<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(c, 'c')">Delete</button>
-
-					</div>
-				</div>
-					
-				<div class="form-group">
-					<button class="btn btn-info" ng-click="addCQuestion('single')"> Single Choice </button>
-					<div ng-repeat="c in evalForm.CourseQuestions">
-						<div ng-show="c.Type === 'single'">
-							<input type="text" id="CourseQtext" ng-model="c.Text" placeholder="Titill"/>
-							<input type="text" id="CourseQtextEN" ng-model="c.TextEN" placeholder="Title"/>
-							<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(c, 'c')">Delete</button>
-
-							<button class="btn btn-info" ng-click="addTAnswer(c)"> Add answer </button>
-							<div ng-repeat="a in c.Answers">
-								<input type="text" id="CourseQtext" ng-model="a.Text" placeholder="Titill"/>
-								<input type="text" id="CourseQtextEN" ng-model="a.TextEN" placeholder="Title"/>
-								<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(c, a, 'c')">Delete</button>
-
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<button class="btn btn-info" ng-click="addCQuestion('multiple')"> Multiple Choice </button>
-					<div ng-repeat="c in evalForm.CourseQuestions">
-						<div ng-show="c.Type === 'multiple'">
-							<input type="text" id="CourseQtext" ng-model="c.Text" placeholder="Titill" />
-							<input type="text" id="CourseQtextEN" ng-model="c.TextEN" placeholder="Title"/>
-							<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(c, 'c')">Delete</button>
-
-							<button class="btn btn-info" ng-click="addTAnswer(c)"> Add answer </button>
-							<div ng-repeat="a in c.Answers">
-								<input type="text" id="CourseQtext" ng-model="a.Text" placeholder="Titill"/>
-								<input type="text" id="CourseQtextEN" ng-model="a.TextEN" placeholder="Title"/>
-								<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(c, a, 'c')">Delete</button>
-
-							</div>
-						</div>
-					</div>
-				</div>
-
+		</div>
+		<div ng-repeat="c in evalForm.CourseQuestions" ng-show="c.Type === 'multiple'">
+			<p>Single choice question: {{c.Text}}</p>
+			<p>Single choice question: {{c.TextEN}} </p>
+			<div ng-repeat="a in c.Answers">
+				<p>Answer: {{a.Text}}</p>
+				<p>Answer: {{a.TextEN}}</p>
 			</div>
 		</div>
 
-	    <!-- TeacherQuestions -->
-	    <div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Teacher Questions</h3>
+		<p>Teacher Questions </p>
+		<div ng-repeat="t in evalForm.TeacherQuestions" ng-show="t.Type === 'text'">
+			<p>Text question {{t.ID}}: {{t.Text}}</p>
+			<p>Text question {{t.ID}}: {{t.TextEN}}</p>
+		</div>
+		<div ng-repeat="t in evalForm.TeacherQuestions" ng-show="t.Type === 'single'">
+			<p>Single choice question: {{t.Text}}</p>
+			<p>Single choice question: {{t.TextEN}} </p>
+			<div ng-repeat="a in t.Answers">
+				<p>Answer: {{a.Text}}</p>
+				<p>Answer: {{a.TextEN}}</p>
 			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<button class="btn btn-info" ng-click="addTQuestion('text')"> Text </button>
-					<div ng-repeat="t in evalForm.TeacherQuestions" ng-show="t.Type === 'text'">
-						<input type="text" id="TeacherQtext" ng-model="t.Text" placeholder="Titill"/>
-						<input type="text" id="TeacherQtextEN" ng-model="t.TextEN" placeholder="Title"/>
-						<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(t, 't')">Delete</button>
-					</div>
-				</div>
+		</div>
+		<div ng-repeat="t in evalForm.TeacherQuestions" ng-show="t.Type === 'multiple'">
+			<p>Single choice question: {{t.Text}}</p>
+			<p>Single choice question: {{t.TextEN}} </p>
+			<div ng-repeat="a in t.Answers">
+				<p>Answer: {{a.Text}}</p>
+				<p>Answer: {{a.TextEN}}</p>
+			</div>
+		</div>
 
-				<div class="form-group">
-					<button class="btn btn-info" ng-click="addTQuestion('single')"> Single Choice </button>
-					<div ng-repeat="t in evalForm.TeacherQuestions">
-						<div ng-show="t.Type === 'single'">
-							Question
+		<div> 
+			StartDate: <input type="datetime-local" id="start" ng-model="start"/> EndDate: <input type="datetime-local" id="start" ng-model="end"/> 
+		</div>
+
+		<button class="btn btn-info" ng-click="publishTHIS(start, end)"> PUBLISH </button>
+
+
+	</div>
+	<div ng-show="mja">
+		<h2>Create Evaluation</h2>
+
+		<p class="lead">
+		Please fill in form
+		</p>
+
+		<div class="form-group">
+	        <span><label for="Title" class="control-label">Title:</label></span>
+	        <input type="text" class="form-control" id="Title" name="Title" ng-model="evalForm.Title"/>
+	    </div>
+	    <div class="form-group">
+	        <span><label for="TitleEN" class="control-label">English Title:</label></span>
+	        <input type="text" class="form-control" id="TitleEN" name="TitleEN" ng-model="evalForm.TitleEN"/>
+	    </div>
+	    <div class="form-group">
+	        <span><label for="IntroText" class="control-label">Introduction:</label></span>
+	        <input type="text" class="form-control" id="IntroText" name="IntroText" ng-model="evalForm.IntroText"/>
+	    </div>
+	    <div class="form-group">
+	        <span><label for="IntroTextEN" class="control-label">English Introduction:</label></span>
+	        <input type="text" class="form-control" id="IntroTextEN" name="IntroTextEN" ng-model="evalForm.IntroTextEN" required/>
+	    </div>
+	        </br>
+	        <!-- CourseQuestions -->
+	        <div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Course Questions</h3>
+				</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<button class="btn btn-info" ng-click="addCQuestion('text')"> Text </button>
+						<div ng-repeat="c in evalForm.CourseQuestions" ng-show="c.Type === 'text'">
+						<span>Text question {{c.ID}}: </span>
+							<input type="text" id="CourseQtext" ng-model="c.Text" placeholder="Titill" required="required"/>
+							<input type="text" id="CourseQtextEN" ng-model="c.TextEN" placeholder="Title" required="required"/>
+							<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(c, 'c')">Delete</button>
+
+						</div>
+					</div>
+						
+					<div class="form-group">
+						<button class="btn btn-info" ng-click="addCQuestion('single')"> Single Choice </button>
+						<div ng-repeat="c in evalForm.CourseQuestions">
+							<div ng-show="c.Type === 'single'">
+							<span>Single choice question {{c.ID}}: </span>
+								<input type="text" id="CourseQtext" ng-model="c.Text" placeholder="Titill"/>
+								<input type="text" id="CourseQtextEN" ng-model="c.TextEN" placeholder="Title"/>
+								<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(c, 'c')">Delete</button>
+
+								<button class="btn btn-info" ng-click="addTAnswer(c)"> Add answer </button>
+								<div ng-repeat="a in c.Answers">
+								<span>Answer {{a.ID}}: </span>
+									<input type="text" id="CourseQtext" ng-model="a.Text" placeholder="Titill"/>
+									<input type="text" id="CourseQtextEN" ng-model="a.TextEN" placeholder="Title"/>
+									<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(c, a, 'c')">Delete</button>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<button class="btn btn-info" ng-click="addCQuestion('multiple')"> Multiple Choice </button>
+						<div ng-repeat="c in evalForm.CourseQuestions">
+							<div ng-show="c.Type === 'multiple'">
+							<span>Multiple choice question {{c.ID}}: </span>
+								<input type="text" id="CourseQtext" ng-model="c.Text" placeholder="Titill" />
+								<input type="text" id="CourseQtextEN" ng-model="c.TextEN" placeholder="Title"/>
+								<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(c, 'c')">Delete</button>
+
+								<button class="btn btn-info" ng-click="addTAnswer(c)"> Add answer </button>
+								<div ng-repeat="a in c.Answers">
+								<span>Answer {{a.ID}}: </span>
+									<input type="text" id="CourseQtext" ng-model="a.Text" placeholder="Titill"/>
+									<input type="text" id="CourseQtextEN" ng-model="a.TextEN" placeholder="Title"/>
+									<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(c, a, 'c')">Delete</button>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		    <!-- TeacherQuestions -->
+		    <div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Teacher Questions</h3>
+				</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<button class="btn btn-info" ng-click="addTQuestion('text')"> Text </button>
+						<div ng-repeat="t in evalForm.TeacherQuestions" ng-show="t.Type === 'text'">
+						<span>Text question {{t.ID}}: </span>
 							<input type="text" id="TeacherQtext" ng-model="t.Text" placeholder="Titill"/>
 							<input type="text" id="TeacherQtextEN" ng-model="t.TextEN" placeholder="Title"/>
 							<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(t, 't')">Delete</button>
+						</div>
+					</div>
 
-							<button class="btn btn-info" ng-click="addTAnswer(t)"> Add answer </button>
-							<div ng-repeat="a in t.Answers">
-							Answers
-								<input type="text" id="TeacherQtext" ng-model="a.Text" placeholder="Titill"/>
-								<input type="text" id="TeacherQtextEN" ng-model="a.TextEN" placeholder="Title"/>
-								<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(t, a, 't')">Delete</button>
+					<div class="form-group">
+						<button class="btn btn-info" ng-click="addTQuestion('single')"> Single Choice </button>
+						<div ng-repeat="t in evalForm.TeacherQuestions">
+							<div ng-show="t.Type === 'single'">
+								<span>Single choice question {{t.ID}}: </span>
+								<input type="text" id="TeacherQtext" ng-model="t.Text" placeholder="Titill"/>
+								<input type="text" id="TeacherQtextEN" ng-model="t.TextEN" placeholder="Title"/>
+								<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(t, 't')">Delete</button>
 
+								<button class="btn btn-info" ng-click="addTAnswer(t)"> Add answer </button>
+								<div ng-repeat="a in t.Answers">
+								<span>Answer {{a.ID}}: </span>
+									<input type="text" id="TeacherQtext" ng-model="a.Text" placeholder="Titill"/>
+									<input type="text" id="TeacherQtextEN" ng-model="a.TextEN" placeholder="Title"/>
+									<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(t, a, 't')">Delete</button>
+
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					<button class="btn btn-info" ng-click="addTQuestion('multiple')"> Multiple Choice </button>
-					<div ng-repeat="t in evalForm.TeacherQuestions">
-						<div ng-show="t.Type === 'multiple'">
-							<input type="text" id="TeacherQtext" ng-model="t.Text" placeholder="Titill" />
-							<input type="text" id="TeacherQtextEN" ng-model="t.TextEN" placeholder="Title"/>
-							<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(t, 't')">Delete</button>
+					<div class="form-group">
+						<button class="btn btn-info" ng-click="addTQuestion('multiple')"> Multiple Choice </button>
+						<div ng-repeat="t in evalForm.TeacherQuestions">
+							<div ng-show="t.Type === 'multiple'">
+								<span>Text question {{t.ID}}: </span>
+								<input type="text" id="TeacherQtext" ng-model="t.Text" placeholder="Titill" />
+								<input type="text" id="TeacherQtextEN" ng-model="t.TextEN" placeholder="Title"/>
+								<button class="btn btn-danger btn-xs" ng-click="RemoveQuestion(t, 't')">Delete</button>
 
-							<button class="btn btn-info" ng-click="addTAnswer(t)"> Add answer </button>
-							<div ng-repeat="a in t.Answers">
-								<input type="text" id="TeacherQtext" ng-model="a.Text" placeholder="Titill"/>
-								<input type="text" id="TeacherQtextEN" ng-model="a.TextEN" placeholder="Title"/>
-								<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(t, a, 't')">Delete</button>
+								<button class="btn btn-info" ng-click="addTAnswer(t)"> Add answer </button>
+								<div ng-repeat="a in t.Answers">
+								<span>Answer {{a.ID}}: </span>
+									<input type="text" id="TeacherQtext" ng-model="a.Text" placeholder="Titill"/>
+									<input type="text" id="TeacherQtextEN" ng-model="a.TextEN" placeholder="Title"/>
+									<button class="btn btn-danger btn-xs" ng-click="RemoveAnswer(t, a, 't')">Delete</button>
 
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<button type="button" class="btn btn-info" ng-click="createEval()">Submit</button>
 		</div>
-	</div>
 
-	<button type="button" class="btn btn-info" ng-click="createEval()">Submit</button>
+		
+	</div>
+	
 
 </div>

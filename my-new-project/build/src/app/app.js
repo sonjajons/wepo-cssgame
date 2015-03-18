@@ -13,7 +13,11 @@
             templateUrl: 'teacherhome.html',
             controller: 'TeacherController'
           })
-          .when('/createEval', {
+          .when('/teacher/createEval', {
+            templateUrl: 'teachercreate.html',
+            controller: 'TeacherCreateEval'
+          })
+          .when('/teacher/createEval/:evalID', {
             templateUrl: 'teachercreate.html',
             controller: 'TeacherCreateEval'
           })

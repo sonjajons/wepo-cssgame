@@ -1,15 +1,23 @@
 <div class="jumbotron">
 	<h2>Teacher's view</h2>
 
-	<p><a class="btn btn-lg btn-info" ng-click="create()">Create evaluation</a></p>
+	<p><a class="btn btn-lg btn-info" ng-click="create()">Create template</a></p>
 
 
 	<p class="lead">
-		List of evaluations
+		List of evaluation templates
 	</p>
 
+	<div class="alert alert-success" ng-cloak ng-show="successMessage != ''">
+    	{{successMessage}}
+ 	 </div>
+
 	<ul>
-		<li ng-repeat="e in evalYOLO"> {{e.Title}} </li>
+		<li ng-repeat="e in evalYOLO" id="evals">
+			<button class="btn btn-info btn-xs" ng-click="goToPublish(e)">Publish</button>
+					{{e.Title}} 
+		</li>
+
 	</ul>
 
 </div>
