@@ -1,4 +1,4 @@
-angular.module('templates-app', ['createTemplate.html', 'login.html', 'studenthome.html', 'teachercreate.html', 'teacherhome.html']);
+angular.module('templates-app', ['createTemplate.html', 'login.html', 'studenteval.html', 'studenthome.html', 'teachercreate.html', 'teacherhome.html']);
 
 angular.module("createTemplate.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("createTemplate.html",
@@ -176,6 +176,40 @@ angular.module("login.html", []).run(["$templateCache", function($templateCache)
     "");
 }]);
 
+angular.module("studenteval.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("studenteval.html",
+    "<div class=\"jumbotron\">\n" +
+    "	<h2>Evaluation</h2>\n" +
+    "\n" +
+    "	<p class=\"lead\">\n" +
+    "		Please fill in form\n" +
+    "	</p>\n" +
+    "\n" +
+    "	<p>Course Questions: </p>\n" +
+    "	<div class=\"form-group\">\n" +
+    "		<ul>\n" +
+    "			<div ng-repeat=\"e in evaluationYO.CourseQuestions\"> \n" +
+    "				<evaluation-question ng-model=\"e\"></evaluation-question>\n" +
+    "			</div>\n" +
+    "		</ul>\n" +
+    "	</div>\n" +
+    "\n" +
+    "	<p>Teacher Questions</p>\n" +
+    "	<div class=\"form-group\">\n" +
+    "		<ul ng-repeat=\"t in teachersYO\">\n" +
+    "			<p id=\"teacherName\"> {{t.FullName}} </p>\n" +
+    "			<div ng-repeat=\"e in evaluationYO.TeacherQuestions\"> \n" +
+    "				<evaluation-question ng-model=\"e\"></evaluation-question>\n" +
+    "			</div>\n" +
+    "		</ul>\n" +
+    "	</div>\n" +
+    "\n" +
+    "	</br>\n" +
+    "	<button type=\"button\" class=\"btn btn-info\" ng-click=\"submitEval()\">Submit</button>\n" +
+    "	\n" +
+    "</div>");
+}]);
+
 angular.module("studenthome.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("studenthome.html",
     "<div class=\"jumbotron\">\n" +
@@ -185,12 +219,17 @@ angular.module("studenthome.html", []).run(["$templateCache", function($template
     "		Courses:\n" +
     "	</p>\n" +
     "\n" +
-    "	<ul>\n" +
+    "	<ul id=\"evals\">\n" +
     "		<li ng-repeat=\"c in course\"> {{c.Name}} </li>\n" +
     "	</ul>\n" +
     "\n" +
-    "	<ul>\n" +
-    "		<li ng-repeat=\"e in evalYO\"> {{e}} </li>\n" +
+    "	<p class=\"lead\">\n" +
+    "		Evaluations:\n" +
+    "	</p>\n" +
+    "	<ul id=\"evals\">\n" +
+    "		<li ng-repeat=\"e in evalYO\"> \n" +
+    "			<a href=\"#/student/evaluation/{{ e.CourseID }}/20151/{{ e.ID }}\"> {{e.CourseID}} - {{e.TemplateName}}</a>\n" +
+    "		</li>\n" +
     "	</ul>\n" +
     "</div>");
 }]);
@@ -436,7 +475,7 @@ angular.module("teacherhome.html", []).run(["$templateCache", function($template
     "\n" +
     "	<ul>\n" +
     "		<li ng-repeat=\"e in evalYOLO\" id=\"evals\">\n" +
-    "			<button class=\"btn btn-info btn-xs\" ng-click=\"goToPublish(e)\">Publish</button>\n" +
+    "			<button class=\"btn btn-info btn-xs\" ng-click=\"goToPublish(e)\" id=\"pubbutt\">Publish</button>\n" +
     "					{{e.Title}} \n" +
     "		</li>\n" +
     "\n" +

@@ -1,0 +1,17 @@
+<div id="evalQuestion">{{e.TextEN}}</div>
+<div ng-if="e.Type == 'text'">
+	<textarea name="{{a.ID}}" class="evalAnswers"></textarea>
+</div>
+
+<div ng-if="e.Type === 'single'">
+	<div ng-repeat="a in e.Answers" >
+		<input type="radio" name="{{e.ID}}" value="{{a.ID}}" class="evalAnswers"/> {{a.TextEN}}
+	</div>
+</div>
+
+<div ng-if="e.Type === 'multiple'">
+	<div ng-repeat="a in e.Answers" >
+		<input type="checkbox" name="{{e.ID}}" value="{{a.ID}}" class="evalAnswers"/> {{a.TextEN}}
+	</div>
+</div>
+

@@ -1,0 +1,30 @@
+<div class="jumbotron">
+	<h2>Evaluation</h2>
+
+	<p class="lead">
+		Please fill in form
+	</p>
+
+	<p>Course Questions: </p>
+	<div class="form-group">
+		<ul>
+			<div ng-repeat="e in evaluationYO.CourseQuestions"> 
+				<evaluation-question ng-model="e"></evaluation-question>
+			</div>
+		</ul>
+	</div>
+
+	<p>Teacher Questions</p>
+	<div class="form-group">
+		<ul ng-repeat="t in teachersYO">
+			<p id="teacherName"> {{t.FullName}} </p>
+			<div ng-repeat="e in evaluationYO.TeacherQuestions"> 
+				<evaluation-question ng-model="e"></evaluation-question>
+			</div>
+		</ul>
+	</div>
+
+	</br>
+	<button type="button" class="btn btn-info" ng-click="submitEval()">Submit</button>
+	
+</div>

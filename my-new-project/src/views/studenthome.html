@@ -5,11 +5,16 @@
 		Courses:
 	</p>
 
-	<ul>
+	<ul id="evals">
 		<li ng-repeat="c in course"> {{c.Name}} </li>
 	</ul>
 
-	<ul>
-		<li ng-repeat="e in evalYO"> {{e}} </li>
+	<p class="lead">
+		Evaluations:
+	</p>
+	<ul id="evals">
+		<li ng-repeat="e in evalYO"> 
+			<a href="#/student/evaluation/{{ e.CourseID }}/20151/{{ e.ID }}"> {{e.CourseID}} - {{e.TemplateName}}</a>
+		</li>
 	</ul>
 </div>

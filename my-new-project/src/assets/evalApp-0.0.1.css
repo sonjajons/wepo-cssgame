@@ -22,6 +22,16 @@
   max-width: 100%;
 }
 
+#teacherName {
+  font-size: 12pt;
+  text-indent: -3%;
+}
+
+#evalQuestion {
+  font-size: 12pt;
+  text-indent: -2%;
+}
+
 
 html {
   font-family: sans-serif;

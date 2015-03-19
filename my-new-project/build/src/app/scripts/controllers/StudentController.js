@@ -1,11 +1,8 @@
-
 (function () {
    'use strict';
-   // this function is strict...
+
 angular.module('evalApp')
 	.controller('StudentController', function ($scope, StudentResources, LoginResources, $location) {
-	
-	console.log("LOGIN TOKEN: " + LoginResources.retToken());	
 
 	if(LoginResources.retToken !== 'undefined'){
 		$scope.course = {};
@@ -20,7 +17,7 @@ angular.module('evalApp')
 		});
 	}
 
-	});
+});
 
 
 angular.module('evalApp').factory('StudentResources',
@@ -31,6 +28,13 @@ angular.module('evalApp').factory('StudentResources',
 			},
 			getEvals: function () {
 				return $http.get("http://dispatch.ru.is/h26/api/v1/my/evaluations");
+			},
+			getThisEval: function (e) {
+				console.log("inni í getthis eval í controller factory");
+				return $http.get("http://dispatch.ru.is/h26/api/v1/courses/" + e.course + "/" + e.semester + "/evaluations/" + e.evalID);
+			},
+			getTeachers: function (e) {
+				return $http.get("http://dispatch.ru.is/h26/api/v1/courses/" + e.course + "/" + e.semester + "/teachers");
 			}
 		};
 	});
@@ -38,12 +42,10 @@ angular.module('evalApp').factory('StudentResources',
 
 }());
 
-// console.log(JSON.stringify(data));
 
-/**
- * @ngdoc function
- * @name evalWepoApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the evalWepoApp
- */
+
+
+
+
+
+

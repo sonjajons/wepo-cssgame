@@ -41,13 +41,13 @@ angular.module('evalApp')
 
 			var evId = $scope.evalForm.ID;
 
-			var postME = {
+			var publishME = {
 				TemplateID: evId,
 				StartDate: start,
 				EndDate: end
 			};
 
-			TeacherResources.publishEvaluation(postME)
+			TeacherResources.publishEvaluation(publishME)
 			.success(function(data) {
 				// Melding um ad allt hafi gengid
 				console.log("Published (Y)");
@@ -93,7 +93,7 @@ angular.module('evalApp')
 				Text: '',
 				TextEN: '',
 				ImageURL: '',
-				Weight: ''
+				Weight: quest.Answers.length + 1
 			};
 			quest.Answers.push(answer);
 		};

@@ -25,6 +25,10 @@
             templateUrl: 'studenthome.html',
             controller: 'StudentController'
           })
+          .when('/student/evaluation/:courseID/:semester/:evalID', {
+            templateUrl: 'studenteval.html',
+            controller: 'StudentEval'
+          })
           .otherwise({
             redirectTo: '/'
           });
