@@ -1,5 +1,17 @@
 # The `src` Directory
 
+# Getting started -------------------------
+
+Run npm install
+
+Run bower install
+
+Run grunt watch
+
+Open browser localhost:9000
+
+------------------------------------------
+
 ## Overview
 
 The `src/` directory contains all code used in the application along with all

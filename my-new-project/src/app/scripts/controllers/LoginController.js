@@ -60,14 +60,3 @@
 
 
 }());
-
-
-// console.log(JSON.stringify(data));
-
-/**
- * @ngdoc function
- * @name evalWepoApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the evalWepoApp
- */
